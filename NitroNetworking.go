@@ -3,6 +3,7 @@
 import (
     "fmt"
     "net/https"
+    "net"
     "log"
     "html/template"
     "github.com/gorilla/mux"
@@ -66,4 +67,14 @@ func ListDevices() DeviceList {
 
     finalList := DeviceList{Content: dList, DeviceCount: count}
     return &finalList
+}
+
+func getLocalIP() net.UDPAddr {
+    conn, err := net.Dial("udp","8.8.8.8:80")
+    if err != nil {
+        log.Fatal("Couldn't start outbound connection")
+    }
+    defer conn.Close()
+    localAddr := conn.LocalAddr().(*net.UDPAddr)
+    return &localAddr
 }
