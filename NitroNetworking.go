@@ -19,7 +19,7 @@ type App struct {
 func main() {
     router := mux.NewRouter().StrictSlashes(true)
     router.HandleFunc("/",IndexHandler)
-    router.HandleFunc("/Network",NetworkHandler)
+    router.HandleFunc("/network",NetworkHandler)
 
     log.Fatal(http.ListenAndServe(":8080",router))
 }
